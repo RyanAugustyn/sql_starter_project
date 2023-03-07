@@ -1,3 +1,8 @@
+Question 11 asked what seemed to make an airbnb successful. Price was all over the place generally, but it seems to be neighborhood combined with price, with likely how easy the host was to work with (though can't say that for sure from data provided). 
+
+
+Assignment instructions:
+
 # SQL In Action 
 
 Project problems and setup directions for the Week 6 Introduction to SQL project.

@@ -28,7 +28,9 @@
 
 -- EXPECTED OUTPUT: 40 neighbourhoods listed
 
-SELECT * FROM intro_sql.final_airbnb
+
+
+-- SELECT distinct neighbourhood FROM intro_sql.final_airbnb
 
 
 
@@ -42,11 +44,25 @@ SELECT * FROM intro_sql.final_airbnb
 -- EXPECTED OUTPUT: Highest = 785, Lowest = 55
 
 
+-- Lowest: 
+
+-- SELECT * FROM intro_sql.final_airbnb
+-- ORDER BY price
+-- LIMIT 1;
+
+-- Highest: 
+-- SELECT * FROM intro_sql.final_airbnb
+-- ORDER BY price DESC
+-- LIMIT 1;
+
+
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 5 >>>>>>>>>>>>>>>>>>>>>>>
 -- Find the average availability for all listings in the data set (using the availability_365 column)
 -- HINT: Aggregates are more than just big rocks...
 
 -- EXPECTED OUTPUT: 165.3904
+
+-- SELECT AVG(availability_365) from intro_sql.final_airbnb
 
 
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 6 >>>>>>>>>>>>>>>>>>>>>>>
@@ -55,12 +71,20 @@ SELECT * FROM intro_sql.final_airbnb
 
 -- EXPECTED OUTPUT: 6 rows
 
+-- SELECT * FROM intro_sql.final_airbnb
+-- WHERE number_of_reviews = 0 OR number_of_reviews = null
+
 
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 7 >>>>>>>>>>>>>>>>>>>>>>>
 -- Find the id of the listing with a room_type of "Private room" that has the most reviews 
 -- HINT: Sorting is your friend!
 
 -- EXPECTED OUTPUT: 58059
+
+-- SELECT id FROM intro_sql.final_airbnb
+-- WHERE room_type = "Private room"
+-- ORDER BY number_of_reviews DESC
+-- LIMIT 1
 
 
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 8 >>>>>>>>>>>>>>>>>>>>>>>
@@ -71,20 +95,54 @@ SELECT * FROM intro_sql.final_airbnb
 -- EXPECTED OUTPUT: Williamsburg
 -- INVESTIGATE: Should Williamsburg be crowned the most popular neighbourhood?
 
+-- SELECT neighbourhood, COUNT(neighbourhood) FROM intro_sql.final_airbnb
+-- GROUP BY neighbourhood 
+-- ORDER BY COUNT(neighbourhood) DESC
+-- Limit 1;
+
+-- Harlem also has 16 listings 
+
+
+
+
+
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 9 >>>>>>>>>>>>>>>>>>>>>>>
--- Query the data to discover which listing is the most popular using the reviews_per_month for all listings with a minimum_nights value of less than 7
+-- Query the data to discover which listing is the most popular using the reviews_per_month for 
+-- all listings with a minimum_nights value of less than 7
 -- HINT: Sorting is still your friend! So are constraints.
 
 -- EXPECTED OUTPUT: 58059
 
+-- SELECT id FROM intro_sql.final_airbnb
+-- WHERE minimum_nights < 7 
+-- ORDER BY reviews_per_month DESC
+-- LIMIT 1
+
 
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 10 >>>>>>>>>>>>>>>>>>>>>>>
 -- Find out which host has the most listings. 
--- Create a NEW column that will show a calculation for how many listings the host for each listing has in the table
+-- Create a NEW column that will show a calculation for how many listings the host for each listing has
+-- in the table
 -- Display the column using aliasing.
--- HINT: Work this one step at a time. See if you can find a way to just display the count of listings per host first.
+-- HINT: Work this one step at a time. See if you can find a way to just display the count of 
+-- listings per host first.
 
 -- EXPECTED OUTPUT: The Box House Hotel with 6 listings
+
+
+-- SELECT host_name, count(id) AS num_of_host_listings
+-- FROM intro_sql.final_airbnb
+-- GROUP BY host_name
+-- ORDER BY count(id) DESC
+-- LIMIT 1;
+
+
+
+
+
+
+
+
 
 
 -- <<<<<<<<<<<<<<<<<<<<<< PROBLEM 11 >>>>>>>>>>>>>>>>>>>>>>>
@@ -96,4 +154,10 @@ SELECT * FROM intro_sql.final_airbnb
 -- <<<<<<<<<<<<<<<<<<<<< ** BONUS ** >>>>>>>>>>>>>>>>>>>>>>>
 -- Find the the percent above or below each listing is compared to the average price for all listings.
 -- HINT: No hints! It's a bonus for a reason :)
+
+-- SELECT avg(price)
+-- 165.1027
+-- SELECT *, ((price - 165.1027)/ 165.1027) * 100 AS percent_price_compared_to_avg
+-- FROM intro_sql.final_airbnb
+
 
